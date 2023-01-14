@@ -1,0 +1,28 @@
+{
+  "tasks": [
+    {
+      "text": "Repairing Bike ",
+      "day": "2nd feb at 6:00pm",
+      "reminder": true,
+      "id": 1
+    },
+    {
+      "text": "Shopping",
+      "day": "2nd feb at 7:00pm",
+      "reminder": true,
+      "id": 2
+    },
+    {
+      "text": "Job Interview",
+      "day": "11 Oct at 10:00am",
+      "reminder": true,
+      "id": 3
+    },
+    {
+      "text": "Waqar Interview",
+      "reminder": true,
+      "day": "25 Oct at 10:45am",
+      "id": 4
+    }
+  ]
+}
