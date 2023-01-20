@@ -10,34 +10,83 @@ function App() {
   const [tasks, setTasks]=useState([ ])
 
   useEffect(()=>{
-      const fetchTasks= async()=>{
-      const res= await fetch('http://localhost:5000/tasks')
-      const data= await res.json()
-      console.log(data)
-      }
-
-      fetchTasks()
+     const getTasks= async () => {
+      const taskFromServer = await  fetchTasks()
+      setTasks(taskFromServer)
+     }
+      getTasks()
   }, [])
+// //////////////Fetch Taka//////////////////////////////////////////////////////////////////////
+const fetchTasks= async()=>{
+  const res= await fetch('http://localhost:5000/tasks')
+  const data= await res.json()
 
-// Fetch Taka
-
+  return data
+  }
+///////////////////////////////////////////////
+  ////////////// delete Tasks/////////////////
+// delete Tasks
+const deleteTask=async(id) =>{
+  await fetch(`http://localhost:5000/tasks/${id}`,
+  { method:'DELETE'
+})
+  setTasks(tasks.filter((task) => task.id !== id ))
+}
+////////////////////////////////////////////////////
 
 // Add Task
-const onAdd=(task)=>{
-  const id=Math.floor(Math.random()*10000)+1
-  const newTask = {id, ...task}
-  setTasks([...tasks, newTask])
+// const onAdd=(task)=>{
+//   const id=Math.floor(Math.random()*10000)+1
+//   const newTask = {id, ...task}
+//   setTasks([...tasks, newTask])
+// }
+
+//////////Add Tasks into db.json//////////////////////////
+const onAdd = async (task)=>{
+  const res= await fetch('http://localhost:5000/tasks',
+  {
+  method:'POST',
+  headers:{
+    'Content-type': 'application/json'
+        },
+  body: JSON.stringify(task)
+})
+  const data= await res.json()
+  setTasks([...tasks, data])
 }
-
-// delete Tasks
-  const deleteTask=(id) =>{
-    setTasks(tasks.filter((task) => task.id !== id ))
-  }
-
+///////////////////////////////////////////////////////////////////////////////////////////
 // toggleReminder
-  const toggleReminder=(id)=>{
-    setTasks(tasks.map((task)=>task.id===id ? {...task, reminder : !task.reminder} : task))
-  }
+  // const toggleReminder=(id)=>{
+  //   setTasks(tasks.map((task)=>task.id===id ? {...task, reminder : !task.reminder} : task))
+  // }
+
+/////////////////////////toggle Reminder ////////////////////////////////////////////////////////////////
+/////////////////////Fetch single Task/////////////////////////////////////////////////////
+const fetchTask=async (id) =>{
+  const res = await fetch(`http://localhost:5000/tasks/${id}`)
+  const data = await res.json()
+ 
+    return data
+}
+//////////////////////////////////////////////
+const toggleReminder= async (id) =>{
+  const taskToToggle =await fetchTask(id)
+  const updTask ={...taskToToggle, reminder: !taskToToggle.reminder}
+  const res=await   fetch(`http://localhost:5000/tasks/${id}`,
+  {
+    method:'PUT',
+    headers:{
+      'Content-type':'application/json',
+    },
+    body:JSON.stringify(updTask),
+  })
+  
+  const data=await  res.json()
+  setTasks(tasks.map((task)=>
+  task.id===id ? {...task, reminder:data.reminder} : task))
+  
+}
+/////////////////////////////////////////////////////////////////////////
   return (
     <div className="container">
       <Header onAdd={()=> setShowAddTask(!showAddTask)} />
