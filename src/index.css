@@ -88,6 +88,11 @@ body {
   align-items: center;
   justify-content: space-between;
 }
+.task p {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
 
 .add-form {
   margin-bottom: 40px;

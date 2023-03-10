@@ -1,10 +1,10 @@
 import Button from "./Button"
 
-const Header = ({title, onAdd}) => {
+const Header = ({title, onAdd, showTask}) => {
   return (
     <header className="header">
         <h1>{title}</h1>
-        <Button color='Green' text='Add' onAdd={onAdd}/>
+        <Button color={showTask ? 'green' : 'black'} text={showTask ? 'Close' : 'Add'} onAdd={onAdd}/>
     </header>
   )
 }
