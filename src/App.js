@@ -97,6 +97,7 @@ function App() {
         task._id === id ? { ...task, reminder: data.reminder } : task
       )
     );
+    window.location.reload();
   };
   ///////////////////////////////////////////////////////////////////////////////
 

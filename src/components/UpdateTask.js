@@ -44,7 +44,7 @@ export const UpdateTask = () => {
       }
     );
     navigate("/");
-    // window.location.reload();
+    window.location.reload();
 
   };
 
