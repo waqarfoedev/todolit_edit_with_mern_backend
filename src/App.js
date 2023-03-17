@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
+import Login from "./Authentication/Login";
+import Register from "./Authentication/Register";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 import Header from "./components/Header";
 import { UpdateTask } from "./components/UpdateTask";
+import About from "./components/About";
 
 function App() {
   const [showAddTask, setShowAddTask] = useState(false);
   const [tasks, setTasks] = useState([]);
-  /////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////
+
   useEffect(() => {
     const getTasks = async () => {
       const taskFromServer = await fetchTasks();
@@ -20,9 +22,6 @@ function App() {
   }, []);
   // //////////////Fetch Taka//////////////////////////////////////////////////////////////////////
   const fetchTasks = async () => {
-    // const res = await fetch(
-    //   "https://63cc9c87ea85515415228ef7.mockapi.io/tasks"
-    // );
     const res = await fetch("http://localhost:5000/tasks");
     const data = await res.json();
 
@@ -30,10 +29,7 @@ function App() {
   };
   ///////////////////////////////////////////////
   ////////////// delete Tasks/////////////////
-  // delete Tasks
   const deleteTask = async (id) => {
-    // await fetch(
-    // `https://63cc9c87ea85515415228ef7.mockapi.io/tasks/${id}`,
     await fetch(`http://localhost:5000/tasks/${id}`,
       { method: "DELETE" }
     );
@@ -41,8 +37,6 @@ function App() {
   };
   //////////Add Tasks into db.json//////////////////////////
   const onAdd = async (task) => {
-    // const res = await fetch(
-    //   "https://63cc9c87ea85515415228ef7.mockapi.io/tasks",
     const res = await fetch("http://localhost:5000/tasks/add/",
       {
         method: "POST",
@@ -56,18 +50,8 @@ function App() {
     setTasks([...tasks, data]);
   };
 
-  ///////////////////////////////////////////////////////////////////////////////////////////
-  // toggleReminder
-  // const toggleReminder=(id)=>{
-  //   setTasks(tasks.map((task)=>task.id===id ? {...task, reminder : !task.reminder} : task))
-  // }
-
-  /////////////////////////toggle Reminder ////////////////////////////////////////////////////////////////
   /////////////////////Fetch single Task/////////////////////////////////////////////////////
   const fetchTask = async (id) => {
-    // const res = await fetch(
-    //   `https://63cc9c87ea85515415228ef7.mockapi.io/tasks/${id}`
-    // );
     const res = await fetch(`http://localhost:5000/tasks/` + id);
     const data = await res.json();
 
@@ -78,8 +62,6 @@ function App() {
     const taskToToggle = await fetchTask(id);
     console.log(taskToToggle);
     const updTask = { ...taskToToggle, reminder: !taskToToggle.reminder };
-    // const res = await fetch(
-    //   `https://63cc9c87ea85515415228ef7.mockapi.io/tasks/${id}`,
     const res = await fetch(`http://localhost:5000/tasks/update/${id}`,
 
       {
@@ -99,15 +81,14 @@ function App() {
     );
     window.location.reload();
   };
-  ///////////////////////////////////////////////////////////////////////////////
 
-  /////////////////////////////////////////////////////////////////////////
   return (
-    <div className="container">
+    <div className="contaainer">
       <BrowserRouter>
         <Routes>
+          <Route path="/" element={<Login />} ></Route>
           <Route
-            path="/"
+            path="/home"
             element={[
               <Header
                 onAdd={() => setShowAddTask(!showAddTask)}
@@ -124,9 +105,11 @@ function App() {
               ) : (
                 "No Task remaining"
               ),
+              <About />
             ]}
           />
           <Route path="tasks/update/:id" element={<UpdateTask />}></Route>
+          <Route path="/register" element={<Register />} ></Route>
         </Routes>
       </BrowserRouter>
     </div>

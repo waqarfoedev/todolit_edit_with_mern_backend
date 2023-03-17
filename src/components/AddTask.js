@@ -24,24 +24,24 @@ function AddTask({ onAdd }) {
 
     };
     return (
-        <form className="add-form" onSubmit={onSubmit}>
-            <div className="form-control">
+        <form className="add-formm" onSubmit={onSubmit}>
+            <div className="formm-control">
                 <label>Task</label>
                 <input type='text' value={text} onChange={(e) => setText(e.target.value)} placeholder="Add Task" />
             </div>
-            <div className="form-control">
+            <div className="formm-control">
                 <label>Day & Time</label>
                 <input type='text' value={day} onChange={(e) => setDay(e.target.value)} placeholder="Add Day & Time" />
             </div>
-            <div className="form-control">
+            <div className="formm-control">
                 <label>Description (Optional)</label>
                 <input type='text' value={desc} onChange={(e) => setDesc(e.target.value)} placeholder="write task description in details" />
             </div>
-            <div className="form-control form-control-check" >
+            <div className="formm-control formm-control-check" >
                 <label>Set Reminder</label>
                 <input type='checkbox' checked={reminder} value={reminder} onChange={(e) => setReminder(e.currentTarget.checked)} />
             </div>
-            <input type='submit' value='Save Task' className="btn btn-block" />
+            <input type='submit' value='Save Task' className="btnn btnn-block" />
         </form>
     );
 }

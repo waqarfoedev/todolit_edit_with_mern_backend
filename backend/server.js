@@ -15,8 +15,11 @@ app.use(express.urlencoded());
 
 ////////////////////////////ROUTE ADDRESS //////////////////////////////////
 const tasksRouter = require('./routes/tasks');
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
 app.use('/tasks', tasksRouter);
-
+app.use('/login', loginRouter);
+app.use('/register', registerRouter);
 //////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////// connection with MongoDB ////////////////

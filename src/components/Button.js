@@ -1,8 +1,8 @@
 
-function Button({color, text, onAdd}) {
+function Button({ color, text, onAdd }) {
   return (
-    <button style={{backgroundColor:color }} onClick={onAdd} className='btn' >{text}</button>
-  )
+    <button style={{ backgroundColor: color }} onClick={onAdd} className='btnn' >{text}</button>
+  );
 }
 
-export default Button
+export default Button;
