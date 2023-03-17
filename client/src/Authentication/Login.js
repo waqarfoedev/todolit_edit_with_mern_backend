@@ -23,7 +23,6 @@ const Login = () => {
     );
     if (bench) {
       console.log(bench);
-      alert('Welcome');
       window.location = "/home";
     } else {
       alert('Invalid email & password');
